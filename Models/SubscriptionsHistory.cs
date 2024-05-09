@@ -12,4 +12,6 @@ public partial class SubscriptionsHistory
     public DateTime? TimeTriggered { get; set; }
 
     public uint Id { get; set; }
+
+    public string? CountryId { get; set; }
 }

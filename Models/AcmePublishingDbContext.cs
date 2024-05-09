@@ -118,7 +118,7 @@ public partial class AcmePublishingDbContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("address");
             entity.Property(e => e.CountryId)
-                .HasMaxLength(2)
+                .HasMaxLength(3)
                 .IsFixedLength()
                 .HasColumnName("country_id");
             entity.Property(e => e.Name)
@@ -186,6 +186,10 @@ public partial class AcmePublishingDbContext : DbContext
             entity.ToTable("subscriptions_history");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CountryId)
+                .HasMaxLength(3)
+                .IsFixedLength()
+                .HasColumnName("countryId");
             entity.Property(e => e.DistributorId)
                 .HasMaxLength(38)
                 .IsFixedLength()
