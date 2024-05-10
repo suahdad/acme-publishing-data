@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using acme_publishing_data;
+using NuGet.Common;
 
 namespace acme_publishing_data.Controllers
 {
@@ -39,6 +40,19 @@ namespace acme_publishing_data.Controllers
             }
 
             return customerSubscription;
+        }
+
+        [HttpGet("Subscription/{subId}")]
+        public async Task<ActionResult<CustomerSubscription[]>> GetCustomerSubscription(string subId)
+        {
+            IEnumerable<CustomerSubscription> customerSubscription = await _context.CustomerSubscriptions.Where(x => x.SubscriptionId == subId).ToListAsync();
+
+            if (customerSubscription.Count() == 0)
+            {
+                return NotFound();
+            }
+
+            return customerSubscription.ToArray();
         }
 
         // PUT: api/CustomerSubscription/5

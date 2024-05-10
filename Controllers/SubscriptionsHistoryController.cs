@@ -75,12 +75,19 @@ namespace acme_publishing_data.Controllers
         // POST: api/SubscriptionsHistory
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<SubscriptionsHistory>> PostSubscriptionsHistory(SubscriptionsHistory subscriptionsHistory)
+        public async Task<ActionResult<SubscriptionsHistory>> PostSubscriptionsHistory(string SubscriptionId, string DistributorId, string CountryId)
         {
-            _context.SubscriptionsHistories.Add(subscriptionsHistory);
+            SubscriptionsHistory triggered = new SubscriptionsHistory(){
+                SubscriptionId = SubscriptionId,
+                DistributorId = DistributorId,
+                CountryId = CountryId,
+                TimeTriggered = DateTime.Now,
+                Id = 0
+            };
+            _context.SubscriptionsHistories.Add(triggered);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSubscriptionsHistory", new { id = subscriptionsHistory.Id }, subscriptionsHistory);
+            return triggered;
         }
 
         // DELETE: api/SubscriptionsHistory/5
